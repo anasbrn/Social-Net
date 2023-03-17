@@ -16,6 +16,7 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::orderBy('id')->get();
+        
         return view('posts.index', compact('posts'));
     }
 
@@ -35,7 +36,7 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StorePostRequest $request)
+    public function store(Post $request)
     {
         $request->validate([
             'name' => 'required',
@@ -78,7 +79,7 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdatePostRequest $request, Post $post)
+    public function update(Post $request, Post $post)
     {
         $request->validate([
             'name' => 'required',

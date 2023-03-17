@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
-use App\Http\Requests\StoreCommentRequest;
-use App\Http\Requests\UpdateCommentRequest;
 
 class CommentController extends Controller
 {
@@ -15,7 +13,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $post = Post::with('comments')->find($id);
+        return view('posts.index')->with('comments', $post->comments);
     }
 
     /**
@@ -34,7 +33,7 @@ class CommentController extends Controller
      * @param  \App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreCommentRequest $request)
+    public function store(Comment $request)
     {
         //
     }
@@ -68,7 +67,7 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCommentRequest $request, Comment $comment)
+    public function update(Comment $request, Comment $comment)
     {
         //
     }
