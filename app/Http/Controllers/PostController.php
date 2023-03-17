@@ -15,7 +15,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::orderBy('id')->get();
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -25,7 +26,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -36,7 +37,16 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'descrption' => 'required',
+            'image' => 'required',
+            'name' => 'required',
+        ]);
+
+        Post::create($request->post());
+
+        return redirect()->route('post.index')->with('succes', 'Post has been added successfully');
     }
 
     /**
@@ -47,7 +57,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        $post = Post::findOrFail($post);
     }
 
     /**
@@ -58,7 +68,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit',compact('post'));
     }
 
     /**
@@ -70,7 +80,15 @@ class PostController extends Controller
      */
     public function update(UpdatePostRequest $request, Post $post)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'image' => 'required',
+        ]);
+        
+        $post->fill($request->post())->save();
+
+        return redirect()->route('posts.index')->with('success','Post Has Been updated successfully');
     }
 
     /**
@@ -81,6 +99,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+        return redirect()->route('posts.index')->with('success','Post has been deleted successfully');
     }
 }
