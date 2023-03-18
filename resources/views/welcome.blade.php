@@ -7,6 +7,6 @@
     <title>SocialNet</title>
 </head>
 <body>
-    Home page
+    Dashboard page
 </body>
 </html>

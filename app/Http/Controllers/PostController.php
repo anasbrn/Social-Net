@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Http\Requests\StorePostRequest;
-use App\Http\Requests\UpdatePostRequest;
+use illuminate\HTTP\Request;
 
 class PostController extends Controller
 {
@@ -36,18 +35,19 @@ class PostController extends Controller
      * @param  \App\Http\Requests\StorePostRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Post $request)
+    public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'descrption' => 'required',
-            'image' => 'required',
-            'name' => 'required',
-        ]);
+        
 
-        Post::create($request->post());
+        $post = new Post;
+        $post->name = $request->name;
+        $post->description = $request->description;
+        $post->image = $request->image;
+        $post->user_id = auth()->user()->id;
+        $post->save();
 
-        return redirect()->route('post.index')->with('succes', 'Post has been added successfully');
+        // return redirect('/posts');   
+        return redirect()->route('posts.index')->with('succes', 'Post has been added successfully');
     }
 
     /**

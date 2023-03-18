@@ -2,8 +2,9 @@
 
 @section('content')
 <section style="background-color: #eee;">
+  <a class="btn  btn-primary rounded" href="/post/add">Add post</a>
   @foreach ($posts as $post)
-    <div class="container my-5 py-5">
+  <div class="container my-5 py-5">
       <div class="row d-flex justify-content-center">
         <div class="col-md-12 col-lg-10 col-xl-8">
           <div class="card">
@@ -41,7 +42,7 @@
                       <div>
                         <div class="d-flex justify-content-between align-items-center">
                           <p class="mb-1 text-primary fw-bold">
-                            {{ $post->user->name }} <span class="small text-black">- 2 hours ago</span>
+                            {{ $post->user->name }}
                           </p>
                           <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
                         </div>
@@ -65,7 +66,7 @@
                     <div>
                       <div class="d-flex justify-content-between align-items-center">
                         <p class="mb-1 text-primary">
-                          {{ $post->user->name }} <span class="small text-black">- 3 hours ago</span>
+                          {{ $post->user->name }}
                         </p>
                       </div>
                       <p class="small mb-5">
@@ -83,15 +84,16 @@
                 src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(19).webp" alt="avatar" width="40"
                 height="40" />
                 <div class="form-outline w-100">
-                  <textarea class="form-control" id="textAreaExample" rows="4"
-                  style="background: #fff;"></textarea>
-                  <label class="form-label" for="textAreaExample">Message</label>
+                  <form action="/comments" method="POST">
+                    <textarea class="form-control" id="textAreaExample" rows="4"
+                    style="background: #fff;"></textarea>
+                  </div>
                 </div>
-              </div>
-              <div class="float-end mt-2 pt-1">
-                <button type="button" class="btn btn-primary btn-sm">Post comment</button>
-                {{-- <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button> --}}
-              </div>
+                <div class="float-end mt-2 pt-1">
+                  <button type="submit" class="btn btn-primary btn-sm">Post comment</button>
+                  {{-- <button type="button" class="btn btn-outline-primary btn-sm">Cancel</button> --}}
+                </div>
+                  </form>
             </div>
           </div>
         </div>

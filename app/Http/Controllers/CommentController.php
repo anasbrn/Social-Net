@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use illuminate\HTTP\Request;
 use App\Models\Comment;
 
 class CommentController extends Controller
@@ -33,10 +33,20 @@ class CommentController extends Controller
      * @param  \App\Http\Requests\StoreCommentRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Comment $request)
+    public function store(Request $request)
     {
-        //
+        $request->validate([
+            'comment'=>'required',
+        ]);
+   
+        $input = $request->all();
+        $input['user_id'] = auth()->user()->id;
+    
+        Comment::create($input);
+   
+        return back();
     }
+
 
     /**
      * Display the specified resource.
